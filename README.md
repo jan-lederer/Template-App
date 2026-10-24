@@ -7,7 +7,7 @@ The example app is intentionally generic. It demonstrates a home dashboard, a fi
 ## Design system
 
 - **Palette:** midnight `#090E19`, a soft blue-white light surface `#F3F6FA`, and eight swappable accents: ion, violet, coral, mint, cobalt, sky, amber, and rose. Dark cards, secondary text, and outlines use brighter tones for clearer separation; Material tonal roles adapt the palette for each theme.
-- **Color mode:** new installs follow the device's system appearance. Settings offers System, Light, and Dark with matching icons; choices are session-only, so the default returns to System after restart until persistence is added.
+- **Color mode:** new installs follow the device's system appearance. Settings offers icon-only System, Light, and Dark controls with tooltips; choices are session-only, so the default returns to System after restart until persistence is added.
 - **Navigation:** Home, Explore, and Library are the primary destinations. Settings opens in a scrollable popup sheet from the top bar; the app shell uses an `IndexedStack` to preserve destination state.
 - **Layout:** compact brand bar, one clear action per section, generous whitespace, consistent rounded surfaces, and subtle outlines.
 - **Futuristic detail:** a restrained accent gradient and orbital ring give the home surface depth; glow and color stay secondary to legible content.

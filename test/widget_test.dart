@@ -72,6 +72,12 @@ void main() {
     expect(find.byIcon(Icons.brightness_auto_rounded), findsOneWidget);
     expect(find.byIcon(Icons.light_mode_rounded), findsOneWidget);
     expect(find.byIcon(Icons.dark_mode_rounded), findsOneWidget);
+    expect(find.text('System'), findsNothing);
+    expect(find.text('Light'), findsNothing);
+    expect(find.text('Dark'), findsNothing);
+    expect(find.byTooltip('Follow device appearance'), findsOneWidget);
+    expect(find.byTooltip('Use light appearance'), findsOneWidget);
+    expect(find.byTooltip('Use dark appearance'), findsOneWidget);
 
     dispatcher.platformBrightnessTestValue = Brightness.dark;
     await tester.pumpAndSettle();
@@ -210,6 +216,19 @@ void main() {
     expect(find.text('App identity'), findsOneWidget);
     expect(find.text('Privacy policy'), findsOneWidget);
     expect(find.byTooltip('Open-source licenses'), findsOneWidget);
+    final colorModeCard = find
+        .ancestor(of: find.text('Color mode'), matching: find.byType(Container))
+        .first;
+    final accentColorCard = find
+        .ancestor(
+          of: find.text('Accent color'),
+          matching: find.byType(Container),
+        )
+        .first;
+    expect(
+      tester.getSize(colorModeCard).width,
+      tester.getSize(accentColorCard).width,
+    );
     expect(
       tester
           .widget<Padding>(
@@ -219,7 +238,7 @@ void main() {
       const EdgeInsets.fromLTRB(12, 0, 12, 36),
     );
 
-    await tester.tap(find.text('Light'));
+    await tester.tap(find.byTooltip('Use light appearance'));
     await tester.pumpAndSettle();
     expect(find.text('Settings'), findsOneWidget);
 

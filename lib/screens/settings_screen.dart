@@ -80,7 +80,7 @@ class SettingsScreen extends StatelessWidget {
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 560),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     _SettingsCard(
                       title: 'Color mode',
@@ -90,18 +90,24 @@ class SettingsScreen extends StatelessWidget {
                         segments: const [
                           ButtonSegment(
                             value: ThemeMode.system,
-                            icon: Icon(Icons.brightness_auto_rounded),
-                            label: Text('System'),
+                            icon: Tooltip(
+                              message: 'Follow device appearance',
+                              child: Icon(Icons.brightness_auto_rounded),
+                            ),
                           ),
                           ButtonSegment(
                             value: ThemeMode.light,
-                            icon: Icon(Icons.light_mode_rounded),
-                            label: Text('Light'),
+                            icon: Tooltip(
+                              message: 'Use light appearance',
+                              child: Icon(Icons.light_mode_rounded),
+                            ),
                           ),
                           ButtonSegment(
                             value: ThemeMode.dark,
-                            icon: Icon(Icons.dark_mode_rounded),
-                            label: Text('Dark'),
+                            icon: Tooltip(
+                              message: 'Use dark appearance',
+                              child: Icon(Icons.dark_mode_rounded),
+                            ),
                           ),
                         ],
                         selected: {themeMode},
