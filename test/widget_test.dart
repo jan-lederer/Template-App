@@ -23,6 +23,20 @@ Future<void> _loadRobotoForScreenshot() async {
 }
 
 void main() {
+  testWidgets('shows the Focus launch screen before the home screen', (
+    tester,
+  ) async {
+    await tester.runAsync(_loadRobotoForScreenshot);
+    await tester.pumpWidget(const TemplateApp());
+
+    expect(find.byKey(const ValueKey('focus-launch-screen')), findsOneWidget);
+
+    await tester.pump(const Duration(milliseconds: 1200));
+    await tester.pumpAndSettle();
+    expect(find.text('A thoughtful place to start'), findsOneWidget);
+    expect(find.byKey(const ValueKey('focus-launch-screen')), findsNothing);
+  });
+
   test('dark theme preserves readable secondary text contrast', () {
     final scheme = AppTheme.dark(AppColors.ion).colorScheme;
     expect(
@@ -56,7 +70,7 @@ void main() {
     final dispatcher = tester.platformDispatcher;
     dispatcher.platformBrightnessTestValue = Brightness.light;
     addTearDown(dispatcher.clearPlatformBrightnessTestValue);
-    await tester.pumpWidget(const TemplateApp());
+    await tester.pumpWidget(const TemplateApp(showStartupScreen: false));
 
     final appHeading = find.text('A thoughtful place to start');
     Brightness appBrightness() =>
@@ -93,7 +107,7 @@ void main() {
   testWidgets('title bar dashboard mark follows every accent choice', (
     tester,
   ) async {
-    await tester.pumpWidget(const TemplateApp());
+    await tester.pumpWidget(const TemplateApp(showStartupScreen: false));
     expect(
       find.byKey(const ValueKey('app-brand-dashboard-mark')),
       findsOneWidget,
@@ -138,7 +152,7 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    await tester.pumpWidget(const TemplateApp());
+    await tester.pumpWidget(const TemplateApp(showStartupScreen: false));
     await tester.pumpAndSettle();
     await expectLater(
       find.byType(TemplateApp),
@@ -170,7 +184,7 @@ void main() {
   testWidgets('tabs let people save and revisit a building block', (
     tester,
   ) async {
-    await tester.pumpWidget(const TemplateApp());
+    await tester.pumpWidget(const TemplateApp(showStartupScreen: false));
 
     expect(find.text('A thoughtful place to start'), findsOneWidget);
 
@@ -199,7 +213,7 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    await tester.pumpWidget(const TemplateApp());
+    await tester.pumpWidget(const TemplateApp(showStartupScreen: false));
     await tester.tap(find.byKey(const ValueKey('tab-explore')));
     await tester.pumpAndSettle();
 
@@ -221,7 +235,7 @@ void main() {
     addTearDown(tester.view.resetDevicePixelRatio);
     tester.view.viewPadding = const FakeViewPadding(bottom: 24);
     addTearDown(tester.view.resetViewPadding);
-    await tester.pumpWidget(const TemplateApp());
+    await tester.pumpWidget(const TemplateApp(showStartupScreen: false));
 
     expect(find.byKey(const ValueKey('tab-home')), findsOneWidget);
     expect(find.byKey(const ValueKey('tab-explore')), findsOneWidget);
@@ -272,7 +286,7 @@ void main() {
   testWidgets('license icon opens the license page with icon attribution', (
     tester,
   ) async {
-    await tester.pumpWidget(const TemplateApp());
+    await tester.pumpWidget(const TemplateApp(showStartupScreen: false));
     await tester.tap(find.byTooltip('Open settings'));
     await tester.pumpAndSettle();
 
@@ -287,7 +301,7 @@ void main() {
   testWidgets('rulebook exposes visual, interaction, and reuse rules', (
     tester,
   ) async {
-    await tester.pumpWidget(const TemplateApp());
+    await tester.pumpWidget(const TemplateApp(showStartupScreen: false));
     await tester.tap(find.byKey(const ValueKey('tab-explore')));
     await tester.pumpAndSettle();
 

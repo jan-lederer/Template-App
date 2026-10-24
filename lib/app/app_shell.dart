@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../screens/explore_screen.dart';
 import '../screens/home_screen.dart';
 import '../screens/library_screen.dart';
+import '../screens/loading_screen.dart';
 import '../screens/settings_screen.dart';
 import '../theme/app_theme.dart';
 import '../widgets/app_header.dart';
@@ -11,7 +13,9 @@ import 'app_config.dart';
 import 'feature_catalog.dart';
 
 class AppShell extends StatefulWidget {
-  const AppShell({super.key});
+  const AppShell({this.showStartupScreen = true, super.key});
+
+  final bool showStartupScreen;
 
   @override
   State<AppShell> createState() => _AppShellState();
@@ -23,6 +27,13 @@ class _AppShellState extends State<AppShell> {
   ThemeMode _themeMode = ThemeMode.system;
   Color _accentColor = AppColors.ion;
   final Set<String> _savedFeatureIds = <String>{};
+  late bool _showStartupScreen;
+
+  @override
+  void initState() {
+    super.initState();
+    _showStartupScreen = widget.showStartupScreen;
+  }
 
   List<FeatureItem> get _savedFeatures => featureCatalog
       .where((feature) => _savedFeatureIds.contains(feature.id))
@@ -156,36 +167,70 @@ class _AppShellState extends State<AppShell> {
       theme: AppTheme.light(_accentColor),
       darkTheme: AppTheme.dark(_accentColor),
       themeMode: _themeMode,
-      home: Scaffold(
-        body: SafeArea(
-          child: Column(
-            children: [
-              AppHeader(
-                onOpenSettings: _showSettings,
-              ),
-              Expanded(
-                child: IndexedStack(
-                  index: selectedIndex,
-                  children: [for (final tab in appTabs) screens[tab.id]!],
-                ),
-              ),
-            ],
-          ),
-        ),
-        bottomNavigationBar: NavigationBar(
-          selectedIndex: selectedIndex,
-          onDestinationSelected: (index) =>
-              setState(() => _selectedTab = appTabs[index].id),
-          destinations: [
-            for (final tab in appTabs)
-              NavigationDestination(
-                key: ValueKey('tab-${tab.id.name}'),
-                icon: Icon(tab.icon),
-                selectedIcon: Icon(tab.selectedIcon),
-                label: tab.label,
-              ),
-          ],
-        ),
+      home: Builder(
+        builder: (context) {
+          final home = _showStartupScreen
+              ? FocusLoadingScreen(
+                  onFinished: () {
+                    if (mounted) setState(() => _showStartupScreen = false);
+                  },
+                )
+              : Scaffold(
+                  body: SafeArea(
+                    child: Column(
+                      children: [
+                        AppHeader(onOpenSettings: _showSettings),
+                        Expanded(
+                          child: IndexedStack(
+                            index: selectedIndex,
+                            children: [
+                              for (final tab in appTabs) screens[tab.id]!,
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  bottomNavigationBar: NavigationBar(
+                    selectedIndex: selectedIndex,
+                    onDestinationSelected: (index) =>
+                        setState(() => _selectedTab = appTabs[index].id),
+                    destinations: [
+                      for (final tab in appTabs)
+                        NavigationDestination(
+                          key: ValueKey('tab-${tab.id.name}'),
+                          icon: Icon(tab.icon),
+                          selectedIcon: Icon(tab.selectedIcon),
+                          label: tab.label,
+                        ),
+                    ],
+                  ),
+                );
+          final darkSystemBars =
+              _showStartupScreen ||
+              Theme.of(context).brightness == Brightness.dark;
+          final barColor = darkSystemBars
+              ? AppColors.pageDark
+              : AppColors.pageLight;
+          return AnnotatedRegion<SystemUiOverlayStyle>(
+            value: SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
+              statusBarIconBrightness: darkSystemBars
+                  ? Brightness.light
+                  : Brightness.dark,
+              statusBarBrightness: darkSystemBars
+                  ? Brightness.dark
+                  : Brightness.light,
+              systemNavigationBarColor: barColor,
+              systemNavigationBarIconBrightness: darkSystemBars
+                  ? Brightness.light
+                  : Brightness.dark,
+              systemNavigationBarDividerColor: barColor,
+              systemNavigationBarContrastEnforced: false,
+            ),
+            child: home,
+          );
+        },
       ),
     );
   }

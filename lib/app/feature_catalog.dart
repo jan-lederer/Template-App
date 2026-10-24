@@ -77,6 +77,15 @@ const featureCatalog = <FeatureItem>[
     icon: Icons.blur_on_rounded,
   ),
   FeatureItem(
+    id: 'future-ready-start-page',
+    title: 'Carry the UI kit onto start pages',
+    description: 'Use the Future Ready look on every app start page.',
+    details: "Rule: Every app's start page must carry the Future Ready UI Kit look, including its background treatment, palette, gradients, and surface style. Adapt it to the product while keeping content readable.",
+    source: 'README.md · Visual principles; lib/screens/home_screen.dart; lib/theme/app_theme.dart',
+    group: FeatureGroup.visual,
+    icon: Icons.auto_awesome_outlined,
+  ),
+  FeatureItem(
     id: 'spacing-scale',
     title: 'Keep spacing and shapes consistent',
     description: 'Reuse a small spacing scale and a few corner radii.',

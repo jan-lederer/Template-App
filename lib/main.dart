@@ -8,8 +8,11 @@ void main() {
 }
 
 class TemplateApp extends StatelessWidget {
-  const TemplateApp({super.key});
+  const TemplateApp({this.showStartupScreen = true, super.key});
+
+  final bool showStartupScreen;
 
   @override
-  Widget build(BuildContext context) => const AppShell();
+  Widget build(BuildContext context) =>
+      AppShell(showStartupScreen: showStartupScreen);
 }

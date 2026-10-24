@@ -11,7 +11,7 @@ The example app is intentionally generic. It demonstrates a home dashboard, a fi
 - **Navigation:** Home, Explore, and Library are the primary destinations. Settings opens in a scrollable popup sheet from the top bar; the app shell uses an `IndexedStack` to preserve destination state.
 - **Layout:** compact brand bar, one clear action per section, generous whitespace, consistent rounded surfaces, and subtle outlines.
 - **Futuristic detail:** a restrained accent gradient and orbital ring give the home surface depth; glow and color stay secondary to legible content.
-- **Launch screen:** Android opens on a palette-aware surface with the four-color dashboard mark and a quiet orbital ring. The system splash uses the same mark on Android 12 and newer; earlier Android versions draw it in the launch background.
+- **Launch screen:** Android starts on a midnight surface with the four-color dashboard mark, then shows the Focus startup screen while Flutter opens the workspace. The system splash uses the same mark on Android 12 and newer; earlier Android versions draw it in the launch background.
 - **Responsive behavior:** content is centered and capped at 760 dp on wide screens, while remaining scrollable on phones.
 - **Dependencies:** `url_launcher` is the only third-party runtime plugin; it opens the configured privacy-policy URL. There is no app account, backend, analytics, or data connection.
 
@@ -25,6 +25,7 @@ Use these defaults when adapting the template:
 - Pair color with labels, shape, or icons so color is never the only signal.
 - Use motion briefly to explain a change, and keep navigation and dismiss gestures predictable.
 - Treat futuristic styling as a finishing layer: restrained glow, subtle gradients, and clean surfaces around functional content.
+- Every app's start page must carry the Future Ready UI Kit look, including its background treatment, palette, gradients, and surface style, adapted to the product while keeping content readable.
 - Keep a dark-mode phone screenshot in this README for every primary destination and the Settings popup. Refresh the screenshots whenever those screens change.
 - For every app made from this template, generate a 512 × 512 PNG app icon and a 1024 × 500 PNG presentation (feature) graphic. Keep both in `screenshots/` and refresh them when the product identity changes.
 
