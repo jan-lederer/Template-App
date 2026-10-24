@@ -86,17 +86,21 @@ class SettingsScreen extends StatelessWidget {
                       title: 'Color mode',
                       subtitle: 'Follow the device or choose a theme.',
                       child: SegmentedButton<ThemeMode>(
+                        showSelectedIcon: false,
                         segments: const [
                           ButtonSegment(
                             value: ThemeMode.system,
+                            icon: Icon(Icons.brightness_auto_rounded),
                             label: Text('System'),
                           ),
                           ButtonSegment(
                             value: ThemeMode.light,
+                            icon: Icon(Icons.light_mode_rounded),
                             label: Text('Light'),
                           ),
                           ButtonSegment(
                             value: ThemeMode.dark,
+                            icon: Icon(Icons.dark_mode_rounded),
                             label: Text('Dark'),
                           ),
                         ],

@@ -1,4 +1,4 @@
-<!-- Keep the dot-and-dash geometry in sync with lib/widgets/app_brand_icon.dart. -->
+<!-- Keep the 2x2 dashboard geometry in sync with lib/widgets/app_brand_icon.dart. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="48dp"
     android:height="48dp"
@@ -9,11 +9,14 @@
         android:pathData="M10,2h28a8,8 0,0 1,8 8v28a8,8 0,0 1,-8 8h-28a8,8 0,0 1,-8 -8v-28a8,8 0,0 1,8 -8z" />
     <path
         android:fillColor="#E77860"
-        android:pathData="M13,24a3.5,3.5 0,1 0,7 0a3.5,3.5 0,1 0,-7 0" />
+        android:pathData="M15,13h5a2,2 0,0 1,2 2v5a2,2 0,0 1,-2 2h-5a2,2 0,0 1,-2 -2v-5a2,2 0,0 1,2 -2z" />
     <path
         android:fillColor="#19B8AA"
-        android:pathData="M27,22h3v4h-3a2,2 0,0 1,-2 -2a2,2 0,0 1,2 -2z" />
+        android:pathData="M28,13h5a2,2 0,0 1,2 2v5a2,2 0,0 1,-2 2h-5a2,2 0,0 1,-2 -2v-5a2,2 0,0 1,2 -2z" />
     <path
         android:fillColor="#8D78F6"
-        android:pathData="M30,22h3a2,2 0,0 1,2 2a2,2 0,0 1,-2 2h-3z" />
+        android:pathData="M15,26h5a2,2 0,0 1,2 2v5a2,2 0,0 1,-2 2h-5a2,2 0,0 1,-2 -2v-5a2,2 0,0 1,2 -2z" />
+    <path
+        android:fillColor="#2C9B76"
+        android:pathData="M28,26h5a2,2 0,0 1,2 2v5a2,2 0,0 1,-2 2h-5a2,2 0,0 1,-2 -2v-5a2,2 0,0 1,2 -2z" />
 </vector>

@@ -5,6 +5,10 @@ abstract final class AppColors {
   static const violet = Color(0xFF8D78F6);
   static const coral = Color(0xFFD75E45);
   static const mint = Color(0xFF2C9B76);
+  static const cobalt = Color(0xFF3868D9);
+  static const sky = Color(0xFF087EA4);
+  static const amber = Color(0xFFA56300);
+  static const rose = Color(0xFFB63F66);
   static const pageLight = Color(0xFFF3F6FA);
   static const pageDark = Color(0xFF090E19);
   static const surfaceLight = Color(0xFFFFFFFF);

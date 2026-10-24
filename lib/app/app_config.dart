@@ -61,4 +61,8 @@ const accentOptions = <AccentOption>[
   AccentOption('Violet', AppColors.violet),
   AccentOption('Coral', AppColors.coral),
   AccentOption('Mint', AppColors.mint),
+  AccentOption('Cobalt', AppColors.cobalt),
+  AccentOption('Sky', AppColors.sky),
+  AccentOption('Amber', AppColors.amber),
+  AccentOption('Rose', AppColors.rose),
 ];

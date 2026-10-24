@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:template_app/app/app_config.dart';
 import 'package:template_app/main.dart';
 import 'package:template_app/theme/app_theme.dart';
 
@@ -34,30 +35,98 @@ void main() {
     );
   });
 
-  testWidgets('title bar mark follows the selected accent color', (
+  test('added accent swatches keep the white selected mark legible', () {
+    for (final accent in [
+      AppColors.cobalt,
+      AppColors.sky,
+      AppColors.amber,
+      AppColors.rose,
+    ]) {
+      expect(
+        _contrastRatio(Colors.white, accent),
+        greaterThanOrEqualTo(4.5),
+        reason: 'The selected check mark must be readable on $accent.',
+      );
+    }
+  });
+
+  testWidgets('fresh installs follow system mode and show mode icons', (
+    tester,
+  ) async {
+    final dispatcher = tester.platformDispatcher;
+    dispatcher.platformBrightnessTestValue = Brightness.light;
+    addTearDown(dispatcher.clearPlatformBrightnessTestValue);
+    await tester.pumpWidget(const TemplateApp());
+
+    final appHeading = find.text('A thoughtful place to start');
+    Brightness appBrightness() =>
+        Theme.of(tester.element(appHeading)).brightness;
+    expect(appBrightness(), Brightness.light);
+
+    await tester.tap(find.byTooltip('Open settings'));
+    await tester.pumpAndSettle();
+    final modeSelector = find.byType(SegmentedButton<ThemeMode>);
+    expect(tester.widget<SegmentedButton<ThemeMode>>(modeSelector).selected, {
+      ThemeMode.system,
+    });
+    expect(find.byIcon(Icons.brightness_auto_rounded), findsOneWidget);
+    expect(find.byIcon(Icons.light_mode_rounded), findsOneWidget);
+    expect(find.byIcon(Icons.dark_mode_rounded), findsOneWidget);
+
+    dispatcher.platformBrightnessTestValue = Brightness.dark;
+    await tester.pumpAndSettle();
+    expect(appBrightness(), Brightness.dark);
+
+    await tester.tap(find.byTooltip('Close settings'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Switch to light theme'));
+    await tester.pumpAndSettle();
+    expect(appBrightness(), Brightness.light);
+  });
+
+  testWidgets('title bar dashboard mark follows every accent choice', (
     tester,
   ) async {
     await tester.pumpWidget(const TemplateApp());
+    expect(
+      find.byKey(const ValueKey('app-brand-dashboard-mark')),
+      findsOneWidget,
+    );
     final brandBackground = find.byKey(
       const ValueKey('app-brand-icon-background'),
     );
+    final appHeading = find.text('A thoughtful place to start');
     Color brandColor() =>
         (tester.widget<DecoratedBox>(brandBackground).decoration
                 as BoxDecoration)
             .color!;
+    Color expectedBrandColor(Color accent) {
+      final brightness = Theme.of(tester.element(appHeading)).brightness;
+      return (brightness == Brightness.dark
+              ? AppTheme.dark(accent)
+              : AppTheme.light(accent))
+          .colorScheme
+          .primary;
+    }
 
-    expect(brandColor(), AppTheme.dark(AppColors.ion).colorScheme.primary);
+    expect(brandColor(), expectedBrandColor(AppColors.ion));
 
     await tester.tap(find.byTooltip('Open settings'));
     await tester.pumpAndSettle();
-    await tester.tap(find.byTooltip('Coral'));
-    await tester.pumpAndSettle();
+    for (final option in accentOptions) {
+      final accent = find.byTooltip(option.label);
+      await tester.ensureVisible(accent);
+      await tester.tap(accent);
+      await tester.pumpAndSettle();
 
-    expect(brandColor(), AppTheme.dark(AppColors.coral).colorScheme.primary);
+      expect(brandColor(), expectedBrandColor(option.color));
+    }
   });
 
   testWidgets('home screen phone-size preview', (tester) async {
     await tester.runAsync(_loadRobotoForScreenshot);
+    tester.platformDispatcher.platformBrightnessTestValue = Brightness.dark;
+    addTearDown(tester.platformDispatcher.clearPlatformBrightnessTestValue);
     tester.view.physicalSize = const Size(390, 844);
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.resetPhysicalSize);
@@ -82,7 +151,8 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Building blocks'), findsOneWidget);
 
-    final saveButton = find.byTooltip('Save Reusable cards to library');
+    final ruleTitle = 'Hierarchy before decoration';
+    final saveButton = find.byTooltip('Save $ruleTitle to library');
     await tester.ensureVisible(saveButton);
     await tester.pumpAndSettle();
     await tester.tap(saveButton);
@@ -91,7 +161,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Your library'), findsOneWidget);
-    expect(find.text('Reusable cards'), findsOneWidget);
+    expect(find.text(ruleTitle), findsOneWidget);
   });
 
   testWidgets('long building block details scroll inside the sheet', (
@@ -112,6 +182,8 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byType(BottomSheet), findsOneWidget);
+    expect(find.text('IMPLEMENTED IN'), findsOneWidget);
+    expect(find.textContaining('lib/theme/app_theme.dart'), findsOneWidget);
     expect(tester.takeException(), isNull);
     await tester.ensureVisible(find.text('Save to library'));
     expect(tester.takeException(), isNull);
@@ -172,20 +244,32 @@ void main() {
     expect(find.textContaining('Material Icons by Google'), findsOneWidget);
   });
 
-  testWidgets('patterns include clean futuristic design defaults', (
+  testWidgets('rulebook exposes visual, interaction, and reuse rules', (
     tester,
   ) async {
     await tester.pumpWidget(const TemplateApp());
     await tester.tap(find.byKey(const ValueKey('tab-explore')));
     await tester.pumpAndSettle();
-    await tester.tap(find.widgetWithText(FilterChip, 'Patterns'));
-    await tester.pumpAndSettle();
 
+    await tester.tap(find.widgetWithText(FilterChip, 'Visual'));
+    await tester.pumpAndSettle();
+    expect(find.text('Hierarchy before decoration'), findsOneWidget);
     expect(find.text('Color with a job'), findsOneWidget);
-    expect(find.text('Comfortable controls'), findsOneWidget);
-    expect(find.text('Depth without noise'), findsOneWidget);
-    expect(find.text('Motion with purpose'), findsOneWidget);
-    expect(find.text('Settings stay in reach'), findsOneWidget);
+    expect(find.text('Readable text contrast'), findsOneWidget);
+    expect(find.text('Use 48 dp touch targets'), findsNothing);
+
+    await tester.tap(find.widgetWithText(FilterChip, 'Interaction'));
+    await tester.pumpAndSettle();
+    expect(find.text('Use 48 dp touch targets'), findsOneWidget);
+    expect(find.text('Keep settings secondary'), findsOneWidget);
+    expect(find.text('Check commercial-use licenses'), findsNothing);
+
+    await tester.tap(find.widgetWithText(FilterChip, 'Reuse'));
+    await tester.pumpAndSettle();
+    expect(find.text('Check commercial-use licenses'), findsOneWidget);
+    expect(find.text('Replace the starter identity'), findsOneWidget);
+    expect(find.text('Increment every app update'), findsOneWidget);
+    expect(find.text('Readable text contrast'), findsNothing);
   });
 }
 

@@ -6,7 +6,8 @@ The example app is intentionally generic. It demonstrates a home dashboard, a fi
 
 ## Design system
 
-- **Palette:** midnight `#090E19`, ion seed `#19B8AA`, violet `#8D78F6`, and a soft blue-white light surface `#F3F6FA`. Dark cards, secondary text, and outlines use brighter tones for clearer separation; Material tonal roles adapt the palette for each theme.
+- **Palette:** midnight `#090E19`, a soft blue-white light surface `#F3F6FA`, and eight swappable accents: ion, violet, coral, mint, cobalt, sky, amber, and rose. Dark cards, secondary text, and outlines use brighter tones for clearer separation; Material tonal roles adapt the palette for each theme.
+- **Color mode:** new installs follow the device's system appearance. Settings offers System, Light, and Dark with matching icons; choices are session-only, so the default returns to System after restart until persistence is added.
 - **Navigation:** Home, Explore, and Library are the primary destinations. Settings opens in a scrollable popup sheet from the top bar; the app shell uses an `IndexedStack` to preserve destination state.
 - **Layout:** compact brand bar, one clear action per section, generous whitespace, consistent rounded surfaces, and subtle outlines.
 - **Futuristic detail:** a restrained accent gradient and orbital ring give the home surface depth; glow and color stay secondary to legible content.
@@ -53,22 +54,22 @@ The preview test loads Roboto and Material Icons from `test/fonts/`; those copie
 | Accent choices shown in Settings | `lib/app/app_config.dart` (`accentOptions`) |
 | Top-level destination labels and icons | `lib/app/app_config.dart` (`AppTab`, `appTabs`) |
 | Which screen belongs to each destination, and the Settings popup | `lib/app/app_shell.dart` |
-| Example content and detail copy | `lib/app/feature_catalog.dart` |
+| Explore rulebook entries, rule copy, grouping, and implementation references | `lib/app/feature_catalog.dart` |
 | Individual screen layouts | `lib/screens/` |
 | Shared app bar, page layout, and feature card | `lib/widgets/` |
-| Launcher and title-bar brand mark | `android/app/src/main/res/drawable/ic_launcher.xml`, `android/app/src/main/res/mipmap-*/ic_launcher.png`, `lib/widgets/app_brand_icon.dart` (keep the dot-and-dash geometry in sync; the title-bar tile follows the selected accent, while the launcher mark uses coral, ion, and violet; regenerate Android bitmaps with `java tool/generate_android_launcher_icons.java`) |
+| Launcher and title-bar brand mark | `android/app/src/main/res/drawable/ic_launcher.xml`, `android/app/src/main/res/mipmap-*/ic_launcher.png`, `lib/widgets/app_brand_icon.dart` (keep the 2-by-2 dashboard tiles in sync; the title-bar mark follows the selected accent, while the launcher uses coral, ion, violet, and mint; regenerate Android bitmaps with `java tool/generate_android_launcher_icons.java`) |
 | Privacy policy destination | `lib/app/app_config.dart` (`privacyPolicyUrl`) |
 | Android package identity | `android/app/build.gradle.kts`, `android/app/src/main/kotlin/com/example/template_app/MainActivity.kt`, `lib/app/app_config.dart` |
 | Version and Android build number | `pubspec.yaml` (`version: name+build`) |
 
 ### Reuse checklist
 
-1. Set `productName`, `brandName`, and `tagline` in `app_config.dart`; update the Android manifest label and keep the dot-and-dash geometry in the title-bar painter and launcher vector in sync.
-2. Replace the ion and violet constants in `app_theme.dart`. Add or remove preview colors in `accentOptions`.
+1. Set `productName`, `brandName`, and `tagline` in `app_config.dart`; update the Android manifest label and keep the 2-by-2 dashboard geometry in the title-bar painter and launcher vector in sync.
+2. Adjust the accent constants in `app_theme.dart` and the matching choices in `accentOptions`.
 3. Rename the `AppTab` entries and `appTabs` labels/icons. Add, remove, or replace the matching widgets in the `screens` map in `app_shell.dart`. Keep primary destinations here; Settings can remain a top-bar popup.
-4. Replace the sample catalog in `feature_catalog.dart` with the next app's content, or remove Explore and Library if they do not fit.
+4. Adapt the rules, groups, and implementation references in `feature_catalog.dart` to the next app. Keep each Explore card tied to a rule that is documented here and implemented in the app, so reviewers can give feedback on a specific choice.
 5. Choose a unique Android application ID before publishing. Change both Gradle `namespace` and `applicationId`, update `AppConfig.packageId`, and rename the Kotlin package declaration and directory to match. A published app cannot change its application ID and remain the same Play Store app.
-6. Update `android:label` and both brand-mark renderings for the installed app identity. The title-bar version follows the selected theme accent; keep the launcher version multicolored with the same mark geometry.
+6. Update `android:label` and both brand-mark renderings for the installed app identity. The title-bar version follows the selected theme accent; keep the launcher version multicolored with the same dashboard geometry.
 7. Set `AppConfig.privacyPolicyUrl` to the published policy, for example a GitHub `blob/main/PRIVACY.md` URL.
 8. Increment `version` in `pubspec.yaml` for each install/update. The number after `+` becomes Android's monotonically increasing `versionCode`.
 
@@ -123,4 +124,4 @@ storeFile=upload-keystore.jks
 
 ## App behavior
 
-The Explore tab filters example screens, components, and patterns, including contrast, comfortable controls, tonal depth, purposeful motion, and focused secondary settings. Save buttons add items to Library. The Settings popup changes the current session's theme, accent, and saved items; those values reset when the process restarts. The app has no storage or backend dependency; `url_launcher` only hands the configured privacy-policy URL to the external browser.
+Explore is the template rulebook, grouped into Visual, Interaction, and Reuse. Each building block states a rule from this README and links to the code or notice file where the current app applies it, so a reviewer can read and comment on a specific rule. Save buttons add rules to Library. The Settings popup changes the current session's theme, accent, and saved items; those values reset when the process restarts. Color mode starts at System and follows the device appearance until the user chooses a session-only override. The app has no storage or backend dependency; `url_launcher` only hands the configured privacy-policy URL to the external browser.

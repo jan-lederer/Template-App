@@ -10,7 +10,7 @@ class AppHeader extends StatelessWidget {
     super.key,
   });
 
-  final VoidCallback onThemeToggle;
+  final ValueChanged<Brightness> onThemeToggle;
   final VoidCallback onOpenSettings;
 
   @override
@@ -54,7 +54,7 @@ class AppHeader extends StatelessWidget {
           const Spacer(),
           IconButton(
             tooltip: isDark ? 'Switch to light theme' : 'Switch to dark theme',
-            onPressed: onThemeToggle,
+            onPressed: () => onThemeToggle(theme.brightness),
             icon: Icon(
               isDark ? Icons.light_mode_outlined : Icons.dark_mode_outlined,
               size: 21,

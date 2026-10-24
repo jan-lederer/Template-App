@@ -21,22 +21,19 @@ class ExploreScreen extends StatefulWidget {
 }
 
 class _ExploreScreenState extends State<ExploreScreen> {
-  static const _filters = ['All', 'Screens', 'Components', 'Patterns'];
+  static const _filters = ['All', 'Visual', 'Interaction', 'Reuse'];
   String _selectedFilter = _filters.first;
 
   @override
   Widget build(BuildContext context) {
     final filtered = featureCatalog.where((feature) {
       if (_selectedFilter == 'All') return true;
-      return feature.groupLabel ==
-              _selectedFilter.substring(0, _selectedFilter.length - 1) ||
-          (_selectedFilter == 'Screens' &&
-              feature.group == FeatureGroup.screen);
+      return feature.groupLabel == _selectedFilter;
     }).toList();
 
     return PageBody(
       title: 'Building blocks',
-      subtitle: 'Polished patterns for the screens and moments in your app.',
+      subtitle: 'Review the rules this template follows. Open one to read the current implementation.',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

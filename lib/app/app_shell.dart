@@ -20,7 +20,7 @@ class AppShell extends StatefulWidget {
 class _AppShellState extends State<AppShell> {
   final _navigatorKey = GlobalKey<NavigatorState>();
   AppTab _selectedTab = AppTab.home;
-  ThemeMode _themeMode = ThemeMode.dark;
+  ThemeMode _themeMode = ThemeMode.system;
   Color _accentColor = AppColors.ion;
   final Set<String> _savedFeatureIds = <String>{};
 
@@ -161,8 +161,8 @@ class _AppShellState extends State<AppShell> {
           child: Column(
             children: [
               AppHeader(
-                onThemeToggle: () => setState(() {
-                  _themeMode = _themeMode == ThemeMode.dark
+                onThemeToggle: (brightness) => setState(() {
+                  _themeMode = brightness == Brightness.dark
                       ? ThemeMode.light
                       : ThemeMode.dark;
                 }),
