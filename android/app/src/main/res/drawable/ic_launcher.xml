@@ -1,0 +1,13 @@
+<!-- Keep this mark in sync with lib/widgets/app_brand_icon.dart. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <path
+        android:fillColor="#E77860"
+        android:pathData="M10,2h28a8,8 0,0 1,8 8v28a8,8 0,0 1,-8 8h-28a8,8 0,0 1,-8 -8v-28a8,8 0,0 1,8 -8z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M13,24a3.5,3.5 0,1 0,7 0a3.5,3.5 0,1 0,-7 0M25,22h10a2,2 0,0 1,0 4h-10a2,2 0,0 1,0 -4z" />
+</vector>
