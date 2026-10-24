@@ -26,6 +26,7 @@ Use these defaults when adapting the template:
 - Use motion briefly to explain a change, and keep navigation and dismiss gestures predictable.
 - Treat futuristic styling as a finishing layer: restrained glow, subtle gradients, and clean surfaces around functional content.
 - Keep a dark-mode phone screenshot in this README for every primary destination and the Settings popup. Refresh the screenshots whenever those screens change.
+- For every app made from this template, generate a 512 × 512 PNG app icon and a 1024 × 500 PNG presentation (feature) graphic. Keep both in `screenshots/` and refresh them when the product identity changes.
 
 These defaults follow the [Android accessibility guidance](https://developer.android.com/design/ui/mobile/guides/foundations/accessibility), [Android color guidance](https://developer.android.com/design/ui/mobile/guides/styles/color), and Apple's guidance on [design principles](https://developer.apple.com/design/human-interface-guidelines/design-principles) and [purposeful motion](https://developer.apple.com/design/human-interface-guidelines/motion).
 
@@ -52,6 +53,10 @@ flutter test --update-goldens --plain-name 'dark mode phone screenshots'
 ```
 
 The preview test loads Roboto and Material Icons from `test/fonts/`; those copies are test-only and are not bundled as app assets.
+
+## App artwork
+
+The template's 512 × 512 app icon and 1024 × 500 presentation graphic are saved in `screenshots/` as [`template-icon.png`](screenshots/template-icon.png) and [`template-feature-graphic.png`](screenshots/template-feature-graphic.png). Create both assets for every app adapted from this template.
 
 ## Where to customize
 
