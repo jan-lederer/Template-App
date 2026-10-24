@@ -85,9 +85,9 @@ void main() {
 
     await tester.tap(find.byTooltip('Close settings'));
     await tester.pumpAndSettle();
-    await tester.tap(find.byTooltip('Switch to light theme'));
-    await tester.pumpAndSettle();
-    expect(appBrightness(), Brightness.light);
+    expect(appBrightness(), Brightness.dark);
+    expect(find.byTooltip('Switch to light theme'), findsNothing);
+    expect(find.byTooltip('Switch to dark theme'), findsNothing);
   });
 
   testWidgets('title bar dashboard mark follows every accent choice', (

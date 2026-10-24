@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="launch_surface">#F3F6FA</color>
+    <color name="launch_icon_surface">#131D2D</color>
+    <color name="launch_icon_outline">#35465C</color>
+    <color name="launch_orbit">#9EADBE</color>
+</resources>

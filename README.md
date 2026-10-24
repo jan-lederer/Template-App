@@ -11,6 +11,7 @@ The example app is intentionally generic. It demonstrates a home dashboard, a fi
 - **Navigation:** Home, Explore, and Library are the primary destinations. Settings opens in a scrollable popup sheet from the top bar; the app shell uses an `IndexedStack` to preserve destination state.
 - **Layout:** compact brand bar, one clear action per section, generous whitespace, consistent rounded surfaces, and subtle outlines.
 - **Futuristic detail:** a restrained accent gradient and orbital ring give the home surface depth; glow and color stay secondary to legible content.
+- **Launch screen:** Android opens on a palette-aware surface with the four-color dashboard mark and a quiet orbital ring. The system splash uses the same mark on Android 12 and newer; earlier Android versions draw it in the launch background.
 - **Responsive behavior:** content is centered and capped at 760 dp on wide screens, while remaining scrollable on phones.
 - **Dependencies:** `url_launcher` is the only third-party runtime plugin; it opens the configured privacy-policy URL. There is no app account, backend, analytics, or data connection.
 

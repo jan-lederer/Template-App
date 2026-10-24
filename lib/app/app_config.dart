@@ -23,7 +23,7 @@ abstract final class AppConfig {
   static const brandName = 'template';
   static const tagline = 'A calm, capable start for your next app.';
   static const packageId = 'com.example.template_app';
-  static const version = '1.0.0';
+  static const version = '1.1.0';
   static const privacyPolicyUrl =
       'https://github.com/your-org/your-app/blob/main/PRIVACY.md';
 }

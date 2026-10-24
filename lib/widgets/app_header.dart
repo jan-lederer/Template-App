@@ -5,19 +5,16 @@ import 'app_brand_icon.dart';
 
 class AppHeader extends StatelessWidget {
   const AppHeader({
-    required this.onThemeToggle,
     required this.onOpenSettings,
     super.key,
   });
 
-  final ValueChanged<Brightness> onThemeToggle;
   final VoidCallback onOpenSettings;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
-    final isDark = theme.brightness == Brightness.dark;
 
     return Container(
       height: 68,
@@ -52,14 +49,6 @@ class AppHeader extends StatelessWidget {
             style: const TextStyle(fontSize: 23, height: 1),
           ),
           const Spacer(),
-          IconButton(
-            tooltip: isDark ? 'Switch to light theme' : 'Switch to dark theme',
-            onPressed: () => onThemeToggle(theme.brightness),
-            icon: Icon(
-              isDark ? Icons.light_mode_outlined : Icons.dark_mode_outlined,
-              size: 21,
-            ),
-          ),
           IconButton(
             tooltip: 'Open settings',
             onPressed: onOpenSettings,

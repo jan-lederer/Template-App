@@ -161,11 +161,6 @@ class _AppShellState extends State<AppShell> {
           child: Column(
             children: [
               AppHeader(
-                onThemeToggle: (brightness) => setState(() {
-                  _themeMode = brightness == Brightness.dark
-                      ? ThemeMode.light
-                      : ThemeMode.dark;
-                }),
                 onOpenSettings: _showSettings,
               ),
               Expanded(
