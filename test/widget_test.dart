@@ -129,7 +129,7 @@ void main() {
     }
   });
 
-  testWidgets('home screen phone-size preview', (tester) async {
+  testWidgets('dark mode phone screenshots', (tester) async {
     await tester.runAsync(_loadRobotoForScreenshot);
     tester.platformDispatcher.platformBrightnessTestValue = Brightness.dark;
     addTearDown(tester.platformDispatcher.clearPlatformBrightnessTestValue);
@@ -143,6 +143,27 @@ void main() {
     await expectLater(
       find.byType(TemplateApp),
       matchesGoldenFile('../screenshots/template-home.png'),
+    );
+
+    await tester.tap(find.byKey(const ValueKey('tab-explore')));
+    await tester.pumpAndSettle();
+    await expectLater(
+      find.byType(TemplateApp),
+      matchesGoldenFile('../screenshots/template-explore.png'),
+    );
+
+    await tester.tap(find.byKey(const ValueKey('tab-library')));
+    await tester.pumpAndSettle();
+    await expectLater(
+      find.byType(TemplateApp),
+      matchesGoldenFile('../screenshots/template-library.png'),
+    );
+
+    await tester.tap(find.byTooltip('Open settings'));
+    await tester.pumpAndSettle();
+    await expectLater(
+      find.byType(TemplateApp),
+      matchesGoldenFile('../screenshots/template-settings.png'),
     );
   });
 
@@ -286,6 +307,7 @@ void main() {
     await tester.tap(find.widgetWithText(FilterChip, 'Reuse'));
     await tester.pumpAndSettle();
     expect(find.text('Check commercial-use licenses'), findsOneWidget);
+    expect(find.text('Document dark-mode screens'), findsOneWidget);
     expect(find.text('Replace the starter identity'), findsOneWidget);
     expect(find.text('Increment every app update'), findsOneWidget);
     expect(find.text('Readable text contrast'), findsNothing);

@@ -150,6 +150,15 @@ const featureCatalog = <FeatureItem>[
     icon: Icons.inbox_outlined,
   ),
   FeatureItem(
+    id: 'dark-mode-screenshots',
+    title: 'Document dark-mode screens',
+    description: 'Keep phone-size dark screenshots for each app destination.',
+    details: 'Rule: Keep dark-mode screenshots of every primary destination and the settings popup in the README. Capture them at phone size and refresh the gallery whenever those screens change.',
+    source: 'README.md · Dark mode screenshots; test/widget_test.dart',
+    group: FeatureGroup.reuse,
+    icon: Icons.dark_mode_outlined,
+  ),
+  FeatureItem(
     id: 'commercial-assets',
     title: 'Check commercial-use licenses',
     description:

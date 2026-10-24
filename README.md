@@ -24,6 +24,7 @@ Use these defaults when adapting the template:
 - Pair color with labels, shape, or icons so color is never the only signal.
 - Use motion briefly to explain a change, and keep navigation and dismiss gestures predictable.
 - Treat futuristic styling as a finishing layer: restrained glow, subtle gradients, and clean surfaces around functional content.
+- Keep a dark-mode phone screenshot in this README for every primary destination and the Settings popup. Refresh the screenshots whenever those screens change.
 
 These defaults follow the [Android accessibility guidance](https://developer.android.com/design/ui/mobile/guides/foundations/accessibility), [Android color guidance](https://developer.android.com/design/ui/mobile/guides/styles/color), and Apple's guidance on [design principles](https://developer.apple.com/design/human-interface-guidelines/design-principles) and [purposeful motion](https://developer.apple.com/design/human-interface-guidelines/motion).
 
@@ -31,16 +32,22 @@ These defaults follow the [Android accessibility guidance](https://developer.and
 
 **Rule for every app made from this template:** use only dependencies, icons, fonts, images, and other assets whose exact license permits commercial use. Before adding or updating anything—including transitive pub packages, Android/Gradle plugins, or copied assets—check the resolved version's license and attribution/notice requirements. Reject non-commercial, unclear, or unlicensed material. Keep `THIRD_PARTY_NOTICES.md` current, retain required license texts and notices, and expose required attributions in the app's About or open-source licenses screen. Recheck `pubspec.lock`, Gradle plugins, and bundled assets before each release; “free” or “open source” alone is not proof of commercial permission.
 
-The current dependency and icon audit is recorded in [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md). Flutter supplies the app's Material icon font through `uses-material-design`; its exact SDK-supplied font license is included in that audit. The App identity card has a compact open-source licenses icon backed by Flutter's license page and a Privacy policy button. Set `AppConfig.privacyPolicyUrl` to the policy's published URL before shipping a derived app. Roboto and Material Icons copies under `test/fonts/` are used only by the screenshot test and are not app assets.
+[`LICENSE`](LICENSE) covers original project code only. It allows non-commercial use by recipients and reserves commercial use to the rights holder, who can also grant separate commercial permission. It is a custom proprietary license, not an open-source license; third-party dependencies and assets keep their own licenses. The current dependency and icon audit is recorded in [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md). Flutter supplies the app's Material icon font through `uses-material-design`; its exact SDK-supplied font license is included in that audit. The App identity card has a compact open-source licenses icon backed by Flutter's license page and a Privacy policy button. Set `AppConfig.privacyPolicyUrl` to the policy's published URL before shipping a derived app. Roboto and Material Icons copies under `test/fonts/` are used only by the screenshot test and are not app assets.
 
-## Phone-size preview
+## Dark mode screenshots
 
-![Template App home tab at 390 by 844 logical pixels](screenshots/template-home.png)
+The gallery shows the app at 390 by 844 logical pixels with dark appearance enabled. Keep all four views current when the UI changes.
 
-This is a Flutter-rendered phone-size preview without Android system bars. Regenerate it with:
+| Home | Explore |
+| --- | --- |
+| ![Home in dark mode](screenshots/template-home.png) | ![Explore in dark mode](screenshots/template-explore.png) |
+| Library | Settings popup |
+| ![Library in dark mode](screenshots/template-library.png) | ![Settings popup in dark mode](screenshots/template-settings.png) |
+
+These are Flutter-rendered phone-size screenshots without Android system bars. Regenerate them with:
 
 ```sh
-flutter test --update-goldens --plain-name 'home screen phone-size preview'
+flutter test --update-goldens --plain-name 'dark mode phone screenshots'
 ```
 
 The preview test loads Roboto and Material Icons from `test/fonts/`; those copies are test-only and are not bundled as app assets.

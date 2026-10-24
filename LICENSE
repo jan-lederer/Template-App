@@ -1,0 +1,39 @@
+# Template App Proprietary Non-Commercial License
+
+Copyright (c) 2026 the copyright holder(s) of the original project code (the
+"Licensor"). All rights reserved.
+
+This license covers only original code in this repository that Licensor is
+authorized to license (the "Project Code"). It does not replace or change the
+licenses for third-party software, fonts, icons, or other assets; see
+`THIRD_PARTY_NOTICES.md` and the applicable upstream license files.
+
+## Permission for non-commercial use
+
+Provided that you comply with this license and retain this notice with copies,
+Licensor grants you a limited, worldwide, non-exclusive, royalty-free,
+non-transferable license to use, copy, modify, and redistribute the Project
+Code solely for non-commercial purposes.
+
+## Commercial use is reserved
+
+You may not use, copy, modify, distribute, sublicense, or make the Project Code
+available for a commercial purpose without prior written permission from
+Licensor. Commercial purposes include using it to create, operate, or support a
+product or service offered for payment, advertising-supported use, paid hosting
+or SaaS, or business operations intended to obtain commercial advantage or
+monetary compensation.
+
+Licensor expressly retains the unrestricted right to use, modify, distribute,
+sublicense, and commercialize the Project Code and derivative works, including
+in products and services for sale. Licensor may grant commercial permissions to
+others separately in writing. No commercial right is granted to other users by
+this license.
+
+## Other terms
+
+This license does not grant rights to Licensor's names, logos, or trademarks,
+or any patent rights. If you violate these terms, your permission ends. The
+Project Code is provided "AS IS", without warranties or conditions of any kind
+to the extent permitted by applicable law. Licensor is not liable for claims or
+damages arising from use of the Project Code, to the extent permitted by law.
