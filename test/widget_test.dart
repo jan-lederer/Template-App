@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:template_app/main.dart';
+import 'package:template_app/theme/app_theme.dart';
 
 Future<void> _loadRobotoForScreenshot() async {
   final loader = FontLoader('Roboto');
@@ -21,6 +22,40 @@ Future<void> _loadRobotoForScreenshot() async {
 }
 
 void main() {
+  test('dark theme preserves readable secondary text contrast', () {
+    final scheme = AppTheme.dark(AppColors.ion).colorScheme;
+    expect(
+      _contrastRatio(scheme.onSurfaceVariant, scheme.surface),
+      greaterThanOrEqualTo(4.5),
+    );
+    expect(
+      _contrastRatio(scheme.onSurfaceVariant, AppColors.pageDark),
+      greaterThanOrEqualTo(4.5),
+    );
+  });
+
+  testWidgets('title bar mark follows the selected accent color', (
+    tester,
+  ) async {
+    await tester.pumpWidget(const TemplateApp());
+    final brandBackground = find.byKey(
+      const ValueKey('app-brand-icon-background'),
+    );
+    Color brandColor() =>
+        (tester.widget<DecoratedBox>(brandBackground).decoration
+                as BoxDecoration)
+            .color!;
+
+    expect(brandColor(), AppTheme.dark(AppColors.ion).colorScheme.primary);
+
+    await tester.tap(find.byTooltip('Open settings'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Coral'));
+    await tester.pumpAndSettle();
+
+    expect(brandColor(), AppTheme.dark(AppColors.coral).colorScheme.primary);
+  });
+
   testWidgets('home screen phone-size preview', (tester) async {
     await tester.runAsync(_loadRobotoForScreenshot);
     tester.view.physicalSize = const Size(390, 844);
@@ -152,4 +187,16 @@ void main() {
     expect(find.text('Motion with purpose'), findsOneWidget);
     expect(find.text('Settings stay in reach'), findsOneWidget);
   });
+}
+
+double _contrastRatio(Color foreground, Color background) {
+  final foregroundLuminance = foreground.computeLuminance();
+  final backgroundLuminance = background.computeLuminance();
+  final brighter = foregroundLuminance > backgroundLuminance
+      ? foregroundLuminance
+      : backgroundLuminance;
+  final darker = foregroundLuminance > backgroundLuminance
+      ? backgroundLuminance
+      : foregroundLuminance;
+  return (brighter + 0.05) / (darker + 0.05);
 }

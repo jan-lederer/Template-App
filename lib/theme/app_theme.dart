@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 abstract final class AppColors {
-  static const brandMark = Color(0xFFE77860);
   static const ion = Color(0xFF19B8AA);
   static const violet = Color(0xFF8D78F6);
   static const coral = Color(0xFFD75E45);
@@ -9,13 +8,13 @@ abstract final class AppColors {
   static const pageLight = Color(0xFFF3F6FA);
   static const pageDark = Color(0xFF090E19);
   static const surfaceLight = Color(0xFFFFFFFF);
-  static const surfaceDark = Color(0xFF111A2A);
+  static const surfaceDark = Color(0xFF131D2D);
   static const inkLight = Color(0xFF172235);
   static const inkDark = Color(0xFFF1F5FA);
   static const mutedLight = Color(0xFF56657B);
-  static const mutedDark = Color(0xFFA4B2C5);
+  static const mutedDark = Color(0xFFB6C3D4);
   static const lineLight = Color(0xFFDDE5EF);
-  static const lineDark = Color(0xFF27364B);
+  static const lineDark = Color(0xFF35465C);
 }
 
 abstract final class AppTheme {

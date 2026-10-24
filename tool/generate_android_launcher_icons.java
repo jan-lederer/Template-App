@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 
-/** Regenerates the Android density launcher bitmaps to match ic_launcher.xml. */
+/** Regenerates the multicolor launcher bitmaps to match ic_launcher.xml. */
 public class generate_android_launcher_icons {
   public static void main(String[] args) throws Exception {
     String[] densities = {"mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi"};
@@ -21,11 +21,16 @@ public class generate_android_launcher_icons {
       canvas.setRenderingHint(
           RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
       canvas.scale(size / 48.0, size / 48.0);
-      canvas.setColor(new Color(0xE77860));
+      canvas.setColor(new Color(0x131D2D));
       canvas.fill(new RoundRectangle2D.Double(2, 2, 44, 44, 16, 16));
-      canvas.setColor(Color.WHITE);
+      canvas.setColor(new Color(0xE77860));
       canvas.fill(new Ellipse2D.Double(13, 20.5, 7, 7));
-      canvas.fill(new RoundRectangle2D.Double(25, 22, 10, 4, 4, 4));
+      canvas.setColor(new Color(0x19B8AA));
+      canvas.fill(new RoundRectangle2D.Double(25, 22, 5, 4, 4, 4));
+      canvas.fill(new java.awt.geom.Rectangle2D.Double(27, 22, 3, 4));
+      canvas.setColor(new Color(0x8D78F6));
+      canvas.fill(new RoundRectangle2D.Double(30, 22, 5, 4, 4, 4));
+      canvas.fill(new java.awt.geom.Rectangle2D.Double(30, 22, 3, 4));
       canvas.dispose();
 
       File output = new File(
